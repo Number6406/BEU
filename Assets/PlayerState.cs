@@ -3,6 +3,7 @@
 	IDLE,
 	JUMP_CHARGE,
 	JUMP,
+    SMASH,
 	RUN
 
 }

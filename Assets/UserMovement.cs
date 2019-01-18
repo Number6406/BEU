@@ -85,11 +85,22 @@ public class UserMovement : MonoBehaviour {
 			break;
 
 		case PlayerState.JUMP:
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("Smashing");
+                rb2d.AddForce(new Vector2(0, -jump_impulse_max*2), ForceMode2D.Impulse);
+                state = PlayerState.SMASH;
+            }
 			if (IsGrounded () && rb2d.velocity.y < 1) {
 				state = PlayerState.IDLE;
 			}
 			break;
-
+        case PlayerState.SMASH:
+            if (IsGrounded())
+            {
+                 state = PlayerState.IDLE;
+            }
+            break;
 		}
 	}
 
@@ -99,9 +110,9 @@ public class UserMovement : MonoBehaviour {
 		
 		Debug.DrawRay(transform.position, -transform.up * rayDistance, Color.yellow);
 		
-		anim.SetFloat ("speed", rb2d.velocity.magnitude);
-		Debug.Log (rb2d.velocity.magnitude);
+		anim.SetFloat ("speed", Mathf.Abs(rb2d.velocity.x));
+        //Debug.Log (Mathf.Abs(rb2d.velocity.x));
 
-	}
+    }
 
 }
